@@ -7,16 +7,14 @@ public class DifinitionData {
 	String name;
 	long amount;
 
-	DifinitionData(){
-		name = new String();
-	}
-
-	void setCode(String code) {
+	boolean setCode(String code) {
 		this.code = code;
+		return true;
 	}
 
-	void setName(String name){
+	boolean setName(String name){
 		this.name = name;
+		return true;
 	}
 
 	boolean addAmount(long amount){

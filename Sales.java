@@ -6,9 +6,14 @@ public class Sales{
 		this.amount = amount;
 	}
 
+	String fileName;
 	String branchCode;
 	String productCode;
 	long amount;
+
+	Sales (String fileName) {
+		this.fileName = fileName;
+	}
 
 	void setBranchCode(String code) {
 		this.branchCode = code;

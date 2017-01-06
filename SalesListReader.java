@@ -23,6 +23,8 @@ public class SalesListReader {
 
 		ArrayList<Sales> salesList = new ArrayList<Sales>();
 
+		FileReader fr = null;
+		BufferedReader br = null;
 		try{
 			//ディレクトリ内のファイル一覧を取得
 			File dir = new File(folderPath);
@@ -32,6 +34,13 @@ public class SalesListReader {
 			//内容をsalesListに登録
 			for(String fileName: fileNames){
 				if(fileName.matches("\\d{8}.rcd")){
+					String filePath = folderPath + File.separator + fileName;
+					//対象がフォルダならエラー
+					File f = new File(filePath);
+					if (f.isFile() != true) {
+						System.out.println("予期せぬエラーが発生しました");
+						return null;
+					}
 					if(fileCnt == 0){
 						//1ファイル目なら番号を記憶
 						firstFileNumber = Integer.parseInt(fileName.substring(1,8));
@@ -50,18 +59,17 @@ public class SalesListReader {
 						fileCnt++;
 					}
 
-					String filePath = folderPath + "\\" + fileName;
-					FileReader fr = new FileReader(filePath);
-					BufferedReader br = new BufferedReader(fr);
+
+					fr = new FileReader(filePath);
+					br = new BufferedReader(fr);
 					String strLine;
 					//ファイル末尾まで、最大三回一行ずつ読み込む
 					//4行以上あればエラー出力
 					int cnt = 0;
-					Sales sales = new Sales();
+					Sales sales = new Sales(fileName);
 					while((strLine = br.readLine()) != null) {
 						if (cnt >=3){
 							System.out.println("<" + fileName + ">のフォーマットが不正です");
-							br.close();
 							return null;
 						}
 
@@ -79,17 +87,24 @@ public class SalesListReader {
 						cnt++;
 					}
 					salesList.add(sales);
-					br.close();
 				}
 			}
 		}catch(FileNotFoundException e){
 			  System.out.println("予期せぬエラーが発生しました");
-			  System.out.println(e);
 		}catch(IOException e){
 			  System.out.println("予期せぬエラーが発生しました");
-			  System.out.println(e);
+		}finally {
+			try {
+				if (fr != null) {
+					fr.close();
+				}
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException e) {
+				System.out.println("予期せぬエラーが発生しました");
+			}
 		}
-
 		return salesList;
 
 	}

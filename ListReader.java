@@ -13,7 +13,7 @@ public class ListReader {
 	String fileName;
 
 	ListReader(String folderPath, String fileName){
-		//ファイルパスを取得
+		//ファイル名、ファイルパスを取得
 		this.fileName = fileName;
 		filePath = folderPath + File.separator + fileName;
 	}
@@ -44,16 +44,16 @@ public class ListReader {
 			while((strLine = br.readLine()) != null) {
 				//ファイルフォーマットのチェック
 				if(fileName == Constants.FILE_NAME_BRANCH){
-					if(strLine.matches("\\d{3},[^,]*支店") == false){
-						System.out.println("支店定義ファイルのフォーマットが不正です");
-						br.close();
-						return null;
+					if(strLine.matches("\\d{3},[^,]*") == false){
+//						System.out.println("支店定義ファイルのフォーマットが不正です_ListReader");
+//						br.close();
+//						return null;
 					}
 				}else if(fileName == Constants.FILE_NAME_PRODUCT){
-					if(strLine.matches("SFT\\d{5},[^,]*") == false){
-						System.out.println("商品定義ファイルのフォーマットが不正です");
-						br.close();
-						return null;
+					if(strLine.matches("\\w{8},[^,]*") == false){
+//						System.out.println("商品定義ファイルのフォーマットが不正です_ListReader");
+//						br.close();
+//						return null;
 					}
 				}
 				//一行をカンマで分割して、コード,名前をdifDataListに登録
@@ -66,11 +66,9 @@ public class ListReader {
 			br.close();
 		}catch(FileNotFoundException e){
 			  System.out.println("予期せぬエラーが発生しました");
-			  System.out.println(e);
 			  return null;
 		}catch(IOException e){
 			  System.out.println("予期せぬエラーが発生しました");
-			  System.out.println(e);
 			  return null;
 		}
 
