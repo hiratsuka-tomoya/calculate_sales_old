@@ -2,10 +2,6 @@ package jp.co.iccom.hiratsuka_tomoya.calculate_sales;
 
 public class Sales{
 
-	void setAmount(long amount){
-		this.amount = amount;
-	}
-
 	String fileName;
 	String branchCode;
 	String productCode;
@@ -13,6 +9,10 @@ public class Sales{
 
 	Sales (String fileName) {
 		this.fileName = fileName;
+	}
+
+	void setAmount(long amount){
+		this.amount = amount;
 	}
 
 	void setBranchCode(String code) {

@@ -11,14 +11,4 @@ public class Product extends DifinitionData {
 			return false;
 		}
 	}
-
-	boolean setName(String name) {
-		if (name.matches("[^,]*")) {
-			this.name = name;
-			return true;
-		} else {
-			System.out.println("商品定義ファイルのフォーマットが不正です");
-			return false;
-		}
-	}
 }
